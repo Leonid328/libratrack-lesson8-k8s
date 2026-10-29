@@ -1,0 +1,12 @@
+.env
+bin/
+*.exe
+libratrack
+cover.out
+test.log
+app.log
+.DS_Store
+prompts.txt
+design_v10.txt
+security_design.txt
+security_audit.md

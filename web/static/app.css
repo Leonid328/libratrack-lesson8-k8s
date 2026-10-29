@@ -1,0 +1,8 @@
+body { font-family: system-ui, sans-serif; margin: 2rem; background: #f6f4ef; color: #1a1a1a; }
+header { display: flex; justify-content: space-between; align-items: center; }
+table { width: 100%; border-collapse: collapse; background: white; }
+th, td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #ddd; text-align: left; }
+input { padding: 0.4rem 0.6rem; }
+.available { color: #0a7; font-weight: 600; }
+.low { color: #c60; }
+button { cursor: pointer; }

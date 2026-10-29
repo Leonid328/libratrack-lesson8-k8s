@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS loans;
+ALTER TABLE users DROP COLUMN IF EXISTS password_hash;

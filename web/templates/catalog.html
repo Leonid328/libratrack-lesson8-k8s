@@ -1,0 +1,27 @@
+{{define "catalog"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LibraTrack Catalog</title>
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+  <header>
+    <h1>LibraTrack</h1>
+    <nav><a href="/catalog">Catalog</a></nav>
+  </header>
+  <form>
+    <input type="search" name="q" placeholder="Search books"
+           hx-get="/web/books" hx-trigger="keyup changed delay:300ms" hx-target="#book-list">
+  </form>
+  <table>
+    <thead><tr><th>Title</th><th>ISBN</th><th>Category</th><th>Authors</th><th>Availability</th><th></th></tr></thead>
+    <tbody id="book-list">
+      {{range .Books}}{{template "book_row" .}}{{end}}
+    </tbody>
+  </table>
+</body>
+</html>
+{{end}}

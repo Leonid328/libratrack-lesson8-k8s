@@ -1,0 +1,10 @@
+.git
+.github
+*.md
+cover.out
+bin/
+.env
+prompts.txt
+design_v10.txt
+security_*.txt
+security_*.md

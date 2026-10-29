@@ -1,0 +1,12 @@
+{{define "book_row"}}
+<tr>
+  <td>{{.Title}}</td>
+  <td>{{.ISBN}}</td>
+  <td>{{.Category.Name}}</td>
+  <td>{{range $i, $a := .Authors}}{{if $i}}, {{end}}{{$a.FullName}}{{end}}</td>
+  <td class="available">in catalog</td>
+  <td>
+    <button hx-delete="/web/books/{{.ID}}" hx-target="closest tr" hx-swap="outerHTML" hx-confirm="Delete this book?">Delete</button>
+  </td>
+</tr>
+{{end}}

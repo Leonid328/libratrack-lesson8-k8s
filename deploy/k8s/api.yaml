@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-secret
+  namespace: libratrack
+type: Opaque
+stringData:
+  JWT_SECRET: k3s-libratrack-jwt-change-me
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: libratrack-api
+  namespace: libratrack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: libratrack-api
+  template:
+    metadata:
+      labels:
+        app: libratrack-api
+    spec:
+      containers:
+        - name: api
+          image: libratrack:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            - name: MIGRATIONS_PATH
+              value: /app/migrations
+            - name: DATABASE_URL
+              value: postgres://libratrack:libratrack@postgres.libratrack.svc.cluster.local:5432/libratrack?sslmode=disable
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: api-secret
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: libratrack-api
+  namespace: libratrack
+spec:
+  type: NodePort
+  selector:
+    app: libratrack-api
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
